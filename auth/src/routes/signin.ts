@@ -1,8 +1,7 @@
-import { validateRequest } from '../middlewares/validate-request';
+import { validateRequest, BadRequestError } from '@idea-holding/common';
 import express, { Request, Response } from 'express';
 import { body } from 'express-validator';
 import { User } from '../database/models/user.model';
-import { BadRequestError } from '../errors/bad-request-error';
 import { Password } from '../services/password';
 import jwt from 'jsonwebtoken';
 const router = express.Router();
