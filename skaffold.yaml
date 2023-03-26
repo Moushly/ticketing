@@ -28,7 +28,7 @@ build:
           - src: '**/*.js'
             dest: .
     - image: moushly/tickets
-      context: auth
+      context: tickets
       docker:
         dockerfile: Dockerfile
       sync:

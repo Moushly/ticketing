@@ -20,8 +20,6 @@ router.post(
       price,
       userId: req.currentUser!.id,
     });
-    console.log(ticket);
-
     await ticket.save();
     // res.sendStatus(201).send(ticket);
     res.status(201).send(ticket);
