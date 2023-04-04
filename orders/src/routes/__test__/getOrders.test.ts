@@ -6,6 +6,7 @@ import { Ticket } from '../../database/models/ticket.model';
 
 const buildTicket = async () => {
   const ticket = Ticket.build({
+    id: global.createId(),
     title: 'concert',
     price: 200,
   });

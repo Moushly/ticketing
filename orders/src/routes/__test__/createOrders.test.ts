@@ -18,7 +18,7 @@ it('returns an error if the ticket do not exist', async () => {
 });
 
 it('returns an error if the ticket is reserved', async () => {
-  const ticket = Ticket.build({ title: 'new concert', price: 1000 });
+  const ticket = Ticket.build({ id: global.createId(), title: 'new concert', price: 1000 });
 
   await ticket.save();
 
@@ -39,7 +39,7 @@ it('returns an error if the ticket is reserved', async () => {
 });
 
 it('reserved the ticket', async () => {
-  const ticket = Ticket.build({ title: 'concert 2023', price: 3000 });
+  const ticket = Ticket.build({ id: global.createId(), title: 'concert 2023', price: 3000 });
   await ticket.save();
 
   await request(app)
@@ -52,6 +52,7 @@ it('reserved the ticket', async () => {
 it('emits an order created event', async () => {
   // create a ticket
   const ticket = Ticket.build({
+    id: global.createId(),
     title: 'new year 2023',
     price: 1000,
   });

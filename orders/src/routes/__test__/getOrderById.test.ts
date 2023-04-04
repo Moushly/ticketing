@@ -5,6 +5,7 @@ import { Ticket } from '../../database/models/ticket.model';
 it('fetches the order by id', async () => {
   // create ticket
   const ticket = Ticket.build({
+    id: global.createId(),
     title: 'isk Consert',
     price: 1000,
   });
@@ -32,6 +33,7 @@ it('fetches the order by id', async () => {
 it('returns an Error if a user fetch another user orders', async () => {
   // create ticket
   const ticket = Ticket.build({
+    id: global.createId(),
     title: 'isk Consert',
     price: 1000,
   });
