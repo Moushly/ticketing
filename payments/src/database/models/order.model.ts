@@ -1,23 +1,20 @@
 import mongoose from 'mongoose';
-import { OrderStatus } from '@idea-holding/common';
 import { updateIfCurrentPlugin } from 'mongoose-update-if-current';
-import { TicketDoc } from './ticket.model';
-
-export { OrderStatus };
+import { OrderStatus } from '@idea-holding/common';
 
 interface OrderAttrs {
+  id: string;
+  version: number;
   userId: string;
+  price: number;
   status: OrderStatus;
-  expireAt: Date;
-  ticket: TicketDoc;
 }
 
 interface OrderDoc extends mongoose.Document {
+  version: number;
   userId: string;
   status: OrderStatus;
-  expireAt: Date;
-  ticket: TicketDoc;
-  version: number;
+  price: number;
 }
 
 interface OrderModel extends mongoose.Model<OrderDoc> {
@@ -28,20 +25,16 @@ const orderSchema = new mongoose.Schema(
   {
     userId: {
       type: String,
-      reqiured: true,
+      required: true,
+    },
+    price: {
+      type: Number,
+      required: true,
     },
     status: {
       type: String,
       required: true,
       enum: Object.values(OrderStatus),
-      default: OrderStatus.Created,
-    },
-    expireAt: {
-      type: mongoose.Schema.Types.Date,
-    },
-    ticket: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Ticket',
     },
   },
   {
@@ -53,11 +46,18 @@ const orderSchema = new mongoose.Schema(
     },
   }
 );
+
 orderSchema.set('versionKey', 'version');
 orderSchema.plugin(updateIfCurrentPlugin);
 
 orderSchema.statics.build = (attrs: OrderAttrs) => {
-  return new Order(attrs);
+  return new Order({
+    _id: attrs.id,
+    version: attrs.version,
+    userId: attrs.userId,
+    price: attrs.price,
+    status: attrs.status,
+  });
 };
 
 const Order = mongoose.model<OrderDoc, OrderModel>('Order', orderSchema);
