@@ -48,7 +48,7 @@ router.post(
     const order = Order.build({
       userId: req.currentUser!.id,
       status: OrderStatus.Created,
-      expireAt: expiration,
+      expiresAt: expiration,
       ticket,
     });
     await order.save();
@@ -58,7 +58,7 @@ router.post(
       version: order.version,
       status: order.status,
       userId: order.userId,
-      expiresAt: order.expireAt.toISOString(),
+      expiresAt: order.expiresAt.toISOString(),
       ticket: {
         id: ticket.id,
         price: ticket.price,

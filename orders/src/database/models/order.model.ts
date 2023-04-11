@@ -8,14 +8,14 @@ export { OrderStatus };
 interface OrderAttrs {
   userId: string;
   status: OrderStatus;
-  expireAt: Date;
+  expiresAt: Date;
   ticket: TicketDoc;
 }
 
 interface OrderDoc extends mongoose.Document {
   userId: string;
   status: OrderStatus;
-  expireAt: Date;
+  expiresAt: Date;
   ticket: TicketDoc;
   version: number;
 }
@@ -36,7 +36,7 @@ const orderSchema = new mongoose.Schema(
       enum: Object.values(OrderStatus),
       default: OrderStatus.Created,
     },
-    expireAt: {
+    expiresAt: {
       type: mongoose.Schema.Types.Date,
     },
     ticket: {
