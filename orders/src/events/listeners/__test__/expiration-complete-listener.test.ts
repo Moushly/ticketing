@@ -16,7 +16,7 @@ const setup = async () => {
   const order = Order.build({
     status: OrderStatus.Created,
     userId: global.createId(),
-    expireAt: new Date(),
+    expiresAt: new Date(),
     ticket,
   });
   await order.save();
